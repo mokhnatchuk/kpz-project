@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Блог</title>
+    <link rel="icon" href="/static/favicon.ico">
+</head>
+<body>
+    <h2>Категорії</h2>
+    {% if categories %}
+        <ul>
+        {% for item in categories %}
+            <li><a href="{{ item.get_absolute_url }}">{{ item.category }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Немає категорій.</p>
+    {% endif %}
+
+    <h2>Останні публікації</h2>
+    {% if articles %}
+        <ul>
+        {% for item in articles %}
+            <li>
+                <a href="{{ item.get_absolute_url }}">{{ item.title }}</a>
+                <p>{{ item.pub_date|date:"d.m.Y" }}</p>
+                <p>{{ item.description|truncatewords:30 }}</p>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Немає публікацій.</p>
+    {% endif %}
+
+    <p><a href="{% url 'articles-list' %}">Всі публікації</a></p>
+</body>
+</html>

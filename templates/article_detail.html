@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ item.title }}</title>
+    <link rel="icon" href="/static/favicon.ico">
+</head>
+<body>
+    <h1>{{ item.title }}</h1>
+    <p>{{ item.pub_date|date:"d.m.Y" }}</p>
+    <p>{{ item.description }}</p>
+
+    {% if images %}
+        <h2>Зображення</h2>
+        <ul>
+        {% for image in images %}
+            <li>
+                <img src="{{ image.image.url }}" alt="{{ image.title }}" style="max-width: 300px;">
+                {% if image.title %}
+                    <p>{{ image.title }}</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p>
+        <a href="{% url 'home' %}">На головну</a> |
+        <a href="{% url 'articles-list' %}">До списку публікацій</a>
+        {% if item.category %}
+            | <a href="{{ item.category.get_absolute_url }}">{{ item.category.category }}</a>
+        {% endif %}
+    </p>
+</body>
+</html>
